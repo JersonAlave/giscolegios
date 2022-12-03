@@ -1,0 +1,61 @@
+var map = L.map('map', {
+    center: [-17.645184, -71.346210],
+    zoom: 18,
+    minZoom: 10,
+    maxZoom: 20,
+    maxBounds: [[-18.0316,-71.82], [-17.0233,-70.7653]]
+});
+
+var basemapOSM = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <ahref="http://osm.org/copyright"> OpenStreetMap</a> contributor'
+});
+basemapOSM.addTo(map);
+
+var colegios = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_colegios_ilo/wms?", {
+layers: "proyecto_colegios_ilo:colegios", //gisweb:centroseducativos moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+});
+colegios.addTo(map);
+
+var departamentos = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_colegios_ilo/wms?", {
+layers: "proyecto_colegios_ilo:departamentos", //gisweb:centroseducativos moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+});
+departamentos.addTo(map);
+
+var distritos = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_colegios_ilo/wms?", {
+layers: "proyecto_colegios_ilo:distritos", //gisweb:centroseducativos moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+});
+distritos.addTo(map);
+
+var provincias = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_colegios_ilo/wms?", {
+layers: "proyecto_colegios_ilo:provincias", //gisweb:centroseducativos moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+});
+provincias.addTo(map);
+
+var baseMaps = {
+"OSM": basemapOSM
+};
+var overlayMaps = {
+"Centros educativos": colegios
+};
+L.control.layers(baseMaps, overlayMaps,{
+position: 'topright', // 'topleft', 'bottomleft', 'bottomright'
+collapsed: false // true
+}).addTo(map);
+
+
